@@ -81,6 +81,9 @@ coef = (upper_limit * (prefix_size / len(s1)));
 
 ### Memory Complexity
 
+> [!WARNING]
+> constants only valid for `c2dmp-hsm_optimized.cpp` ([here](https://github.com/TsukiNi22/c2dmp-hsm/c2dmp-hsm/c2dmp-hsm_optimized.cpp))
+
 | Case  | Complexity |
 |------|------------|
 | Best | `O(1)` → constant (`637` bytes) |
