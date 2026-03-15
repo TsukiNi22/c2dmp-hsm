@@ -12,7 +12,7 @@ files="$@"
 # Execution
 if [ "$mode" = "unregistered" ]; then
     echo -e "╔═════ 🔻 [${CYAN}Unregistered Files${RESET}] 🔻 ═════╗"
-    find c2dmp-hsm -name "*.cpp" -printf "c2dmp-hsm/%P\n" | while read file; do
+    find src -name "*.cpp" -printf "src/%P\n" | while read file; do
         echo "$files" | grep -q "$file" || echo "$file"
     done
     echo -e "╚═════ 🔺 [${CYAN}Unregistered Files${RESET}] 🔺 ═════╝"

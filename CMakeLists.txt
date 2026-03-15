@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 set(TARGET c2dmp-hsm)
-project(${TARGET} LANGUAGES CXX)
+project(${TARGET} VERSION 1.0 LANGUAGES CXX)
 
 # =========================
 # Compilateur & Standard
@@ -28,15 +28,9 @@ add_compile_options(
 # Sources
 # =========================
 set(SRC
-    # Test execution
-    main.cpp
-
-    # Algorithm
-    c2dmp-hsm/c2dmp-hsm_optimized.cpp
-    c2dmp-hsm/c2dmp-hsm_simplified.cpp
+    src/test.cpp
 )
-add_executable(${TARGET} ${SRC})
-#add_library(${TARGET} STATIC ${SRC})
+add_library(${TARGET} STATIC ${SRC})
 #add_library(${TARGET} SHARED ${SRC})
 
 # =========================
@@ -49,7 +43,25 @@ target_include_directories(${TARGET} PUBLIC include)
 # =========================
 target_compile_options(${TARGET} PRIVATE
     $<$<CONFIG:debug>:-g -ggdb3>
-    $<$<CONFIG:optimized>:-O3 -ffast-math -flto -funroll-loops -fvectorize -fslp-vectorize -mtune=native -fno-plt -pipe -DNDEBUG>
+    $<$<CONFIG:optimized>:-O3 -ffast-math -flto -funroll-loops -fvectorize -fslp-vectorize -march=native -fno-plt -pipe -DNDEBUG>
+)
+
+# =========================
+# Installation
+# =========================
+include(GNUInstallDirs) # load variable used for installation
+
+# library
+install(TARGETS ${TARGET}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+# header
+install(DIRECTORY include/
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
 # =========================

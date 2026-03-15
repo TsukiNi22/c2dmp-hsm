@@ -19,3 +19,4 @@ build/
 .info
 *.old
 perf*
+main.cpp
