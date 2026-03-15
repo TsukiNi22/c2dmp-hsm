@@ -34,11 +34,12 @@ File Description:
 #include <string_view>  // std::string_view
 #include <cstdint>      // std::uint8_t, std::uint16_t, std::uint32_t, std::uint64_t
 #include <cstddef>      // std::size_t
+#include <cstring>      // std::memset
 #include <array>        // std::array
 
 static consteval inline std::array<unsigned char, 256> make_lookup_table()
 {
-    std::array<unsigned char, 256> table{};
+    std::array<unsigned char, 256> table;
 
     // Default char
     for (std::size_t i = 0; i < 256; ++i)
@@ -99,7 +100,8 @@ float c2dmp_optimized(const std::string_view a, const std::string_view b)
     std::size_t bs = b.size();
     std::size_t min = (as < bs) ? as : bs;
     std::size_t max = (as > bs) ? as : bs;
-    alignas(std::hardware_destructive_interference_size) UINTN cc[256] = {0};
+    alignas(std::hardware_destructive_interference_size) UINTN cc[256];
+    std::memset(cc, 0, sizeof(cc));
     UINTN missplaced_char = 0;
     UINTN prefix_size0 = 0, prefix_size1 = 0, prefix_size2 = 0, prefix_size3 = 0, prefix_size4 = 0;
     UINTN prefix_size = 0;
