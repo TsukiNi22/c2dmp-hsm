@@ -28,7 +28,7 @@ add_compile_options(
 # Sources
 # =========================
 set(SRC
-    src/test.cpp
+    src/nothing.cpp
 )
 add_library(${TARGET} STATIC ${SRC})
 #add_library(${TARGET} SHARED ${SRC})
