@@ -176,7 +176,7 @@ float c2dmp_optimized(const std::string_view a, const std::string_view b)
     }
 
     // Compute missplaced char weigth
-    // 1 <= coef <= 1.25
+    // 1.01 <= coef <= 1.25
     // 1.01 -> 0 char diff
     // 1.25 -> 10 char diff
     coef = 1.01 + ((max - min) / 10.) * .25;
