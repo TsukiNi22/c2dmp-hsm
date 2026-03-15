@@ -28,9 +28,15 @@ add_compile_options(
 # Sources
 # =========================
 set(SRC
+    # Test execution
+    main.cpp
+
+    # Algorithm
     c2dmp-hsm/c2dmp-hsm_optimized.cpp
+    c2dmp-hsm/c2dmp-hsm_simplified.cpp
 )
-add_library(${TARGET} STATIC ${SRC})
+add_executable(${TARGET} ${SRC})
+#add_library(${TARGET} STATIC ${SRC})
 #add_library(${TARGET} SHARED ${SRC})
 
 # =========================

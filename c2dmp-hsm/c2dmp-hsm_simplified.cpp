@@ -101,7 +101,6 @@ float c2dmp_simplified(const std::string_view a, const std::string_view b)
     unsigned char ca = '\0';
     unsigned char cb = '\0';
     bool same = 0;
-    bool tmp = 0;
 
     // Init the char count
     for (std::size_t i = 0; i < bs; ++i)
