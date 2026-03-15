@@ -37,6 +37,8 @@ File Description:
 #include <cstring>      // std::memset
 #include <array>        // std::array
 
+#ifndef C2DMP_HSM_NORMALIZE_LOOKUP_TABLE
+    #define C2DMP_HSM_NORMALIZE_LOOKUP_TABLE
 static consteval inline std::array<unsigned char, 256> make_lookup_table()
 {
     std::array<unsigned char, 256> table;
@@ -71,6 +73,7 @@ static consteval inline std::array<unsigned char, 256> make_lookup_table()
 alignas(std::hardware_destructive_interference_size) static constexpr inline std::array<unsigned char, 256> lookup_table = make_lookup_table();
 [[maybe_unused]] // remove warning, due to inline the funtion isn't really used directly
 static inline unsigned char normalize(unsigned char c) {return lookup_table[c];}
+#endif /* C2DMP_HSM_NORMALIZE_LOOKUP_TABLE */
 
 // upper_limit pre computing
 /*
@@ -78,6 +81,8 @@ static inline unsigned char normalize(unsigned char c) {return lookup_table[c];}
  * for (siz_t i = 0; i < prefix_depth; ++i)
  *     upper_limit *= (1 - (i / prefixDepthSearch));
 */
+#ifndef C2DMP_HSM_UPPER_LIMIT_LOOKUP_TABLE
+    #define C2DMP_HSM_UPPER_LIMIT_LOOKUP_TABLE
 static constexpr inline float upper_limit_table[5][5] = {
     {2.0f, 0.0f,      0.0f,      0.0f,    0.0f},
     {2.0f, 1.0f,      0.0f,      0.0f,    0.0f},
@@ -85,6 +90,7 @@ static constexpr inline float upper_limit_table[5][5] = {
     {2.0f, 1.5f,      0.75f,     0.1875f, 0.0f},
     {2.0f, 1.6f,      0.96f,     0.384f,  0.0768f},
 };
+#endif /* C2DMP_HSM_UPPER_LIMIT_LOOKUP_TABLE */
 
 // case sensitive
 template<std::uint32_t prefixDepthSearch = 3, typename UINTN = std::uint32_t>

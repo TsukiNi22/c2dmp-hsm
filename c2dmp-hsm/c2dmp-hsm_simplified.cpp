@@ -37,6 +37,8 @@ File Description:
 #include <cstddef>      // std::size_t
 #include <array>        // std::array
 
+#ifndef C2DMP_HSM_NORMALIZE_LOOKUP_TABLE
+    #define C2DMP_HSM_NORMALIZE_LOOKUP_TABLE
 static consteval inline std::array<unsigned char, 256> make_lookup_table()
 {
     std::array<unsigned char, 256> table{};
@@ -71,6 +73,7 @@ static consteval inline std::array<unsigned char, 256> make_lookup_table()
 alignas(std::hardware_destructive_interference_size) static constexpr inline std::array<unsigned char, 256> lookup_table = make_lookup_table();
 [[maybe_unused]] // remove warning, due to inline the funtion isn't really used directly
 static inline unsigned char normalize(unsigned char c) {return lookup_table[c];}
+#endif /* C2DMP_HSM_NORMALIZE_LOOKUP_TABLE */
 
 // case sensitive
 template<std::uint32_t prefixDepthSearch = 3, typename UINTN = std::uint32_t>
