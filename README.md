@@ -69,7 +69,7 @@ coef = (upper_limit * (prefix_size / len(s1)));
 
 - **n** = `len(s1)`
 - **m** = `len(s2)`
-- **k** = `sizeof(UINT)` → can be `1`, `2`, `4` or `8` for respectively `uint8_t`, `uint16_t`, `uint32_t` and `uint64_t`
+- **k** = `sizeof(UINTN)` → can be `1`, `2`, `4` or `8` for respectively `uint8_t`, `uint16_t`, `uint32_t` and `uint64_t`
 
 ### Time Complexity
 
