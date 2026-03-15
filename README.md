@@ -2,6 +2,29 @@
 
 > **C**ompute **D**istance using **D**ifferences, **M**isplaced characters and **P**refix depth – **H**euristic **S**tring **M**atching
 
+## Installation
+
+#### Cloning the repository
+```bash
+git clone https://github.com/TsukiNi22/c2dmp-hsm
+cd c2dmp-hsm
+```
+
+#### Build & Installation
+```bash
+export BUILD_DIR=build
+cmake -S . -B $BUILD_DIR -DCMAKE_BUILD_TYPE=optimized
+sudo cmake --build $BUILD_DIR --target install --parallel $(nproc)
+```
+
+#### Include
+| Include                              | Content                                                                      |
+| ------------------------------------ | ---------------------------------------------------------------------------- |
+| -lc2dmp-hsm                          | `Nothing for now`                                                            |
+| <c2dmp-hsm/c2dmp-hsm.hpp>            | `float c2dmp(const std::string_view a, const std::string_view b)`            |
+| <c2dmp-hsm/algorithm/optimized.hpp>  | `float c2dmp_optimized(const std::string_view a, const std::string_view b)`  |
+| <c2dmp-hsm/algorithm/simplified.hpp> | `float c2dmp_simplified(const std::string_view a, const std::string_view b)` |
+
 ## Description
 
 This algorithm is used to determine the distance between 2 words. It generates a floating coefficient and the lowest one is the "nearest".
@@ -18,7 +41,6 @@ This algorithm is used to determine the distance between 2 words. It generates a
 - **s2** = the second string that will be used for the prefix comparison
 - **prefixDepthSearch** (default: `3`) = depth of the prefix search
 - **UINTN** (default: `uint32_t`) = type used for the computation of values, which limits the maximum value and influences the optimisation
-
 
 ### Core Principles
 
