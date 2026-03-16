@@ -37,6 +37,8 @@ File Description:
 #include <cstring>      // std::memset
 #include <array>        // std::array
 
+namespace c2dmp::algorithm { // namespace start
+
 #ifndef C2DMP_HSM_NORMALIZE_LOOKUP_TABLE
     #define C2DMP_HSM_NORMALIZE_LOOKUP_TABLE
 static consteval inline std::array<unsigned char, 256> make_lookup_table()
@@ -205,3 +207,5 @@ float c2dmp_optimized(const std::string_view a, const std::string_view b)
     return dist;
 }
 #endif /* C2DMP_HSM_OPTIMIZED */
+
+} // namespace end

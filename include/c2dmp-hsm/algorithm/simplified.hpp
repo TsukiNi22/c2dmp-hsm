@@ -32,10 +32,12 @@ File Description:
 \**************************************************************/
 
 #include <string_view>  // std::string_view
-#include <algorithm>    // std::clamp
+#include <algorithm>    // std::clamp, std::min, std::max
 #include <cstdint>      // std::uint8_t, std::uint16_t, std::uint32_t, std::uint64_t
 #include <cstddef>      // std::size_t
 #include <array>        // std::array
+
+namespace c2dmp::algorithm { // namespace start
 
 #ifndef C2DMP_HSM_NORMALIZE_LOOKUP_TABLE
     #define C2DMP_HSM_NORMALIZE_LOOKUP_TABLE
@@ -79,6 +81,7 @@ static inline unsigned char normalize(unsigned char c) {return lookup_table[c];}
 #ifndef C2DMP_HSM_SIMPLIFIED
     #define C2DMP_HSM_SIMPLIFIED
 template<std::uint32_t prefixDepthSearch = 3, typename UINTN = std::uint32_t>
+[[deprecated("This version isn't the most optimized one, you should use c2dmp_optimized or c2dmp")]]
 float c2dmp_simplified(const std::string_view a, const std::string_view b)
 {
     // Check given type
@@ -163,3 +166,5 @@ float c2dmp_simplified(const std::string_view a, const std::string_view b)
     return dist;
 }
 #endif /* C2DMP_HSM_SIMPLIFIED */
+
+} // namespace end
