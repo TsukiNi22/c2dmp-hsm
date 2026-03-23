@@ -8,7 +8,7 @@
  ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝
 
 Edition:
-##  @date 16/03/2026 by @author Tsukini
+##  @date 23/03/2026 by @author Tsukini
 
 File Name:
 ##  @file c2dmp-hsm.hpp
@@ -17,8 +17,8 @@ File Description:
 ##  Header for include all the different algorithm
 \**************************************************************/
 
-#ifndef C2DMP-HSM_H
-    #define C2DMP-HSM_H
+#ifndef C2DMP_HSM_H
+    #define C2DMP_HSM_H
 
     //----------------------------------------------------------------//
     /* INCLUDE */
@@ -36,4 +36,4 @@ inline float c2dmp(const std::string_view a, const std::string_view b)
 }
 
 } // namespace end
-#endif /* C2DMP-HSM_H */
+#endif /* C2DMP_HSM_H */
