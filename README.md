@@ -18,6 +18,9 @@ sudo cmake --build $BUILD_DIR --target install --parallel $(nproc)
 ```
 
 #### Include
+> [!WARNING]
+> Everything is defined within the namespace `c2dmp::`
+
 | Include                              | Content                                                                      |
 | ------------------------------------ | ---------------------------------------------------------------------------- |
 | -lc2dmp-hsm                          | `Nothing for now`                                                            |
@@ -30,15 +33,16 @@ sudo cmake --build $BUILD_DIR --target install --parallel $(nproc)
 This algorithm is used to determine the distance between 2 words. It generates a floating coefficient and the lowest one is the "nearest".
 
 > [!WARNING]
-> As stated in the title, this algorithm is heuristic, which means that the solution found isn't 100% technically the exact nearest but still aims for the best possible string that will match the wanted string and not necessarily the exact nearest one.
+> As stated in the title, this algorithm is heuristic, meaning that the solution it finds isn't 100% technically the exact closest match. Instead, it aims to return the most relevant string using typical human typing behavior.
 
 > [!CAUTION]
-> The algorithm is case sensitive
+> The algorithm is **case-sensitive**
+> 
+> The order in which the strings (**s1** and **s2**) are provided affects the result of the prefix and misplaced character computations
 
 ### Parameters
-
-- **s1** = the first string that will be used for the prefix search
-- **s2** = the second string that will be used for the prefix comparison
+- **s1** (source) = the first string from which characters are extracted
+- **s2** (target) = the second string in which these characters are searched and compared
 - **prefixDepthSearch** (default: `3`) = depth of the prefix search
 - **UINTN** (default: `uint32_t`) = type used for the computation of values, which limits the maximum value and influences the optimisation
 
