@@ -8,7 +8,7 @@
  ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝
 
 Edition:
-##  @date 16/03/2026 by @author Tsukini
+##  @date 08/04/2026 by @author Tsukini
 
 File Name:
 ##  @file optimized.cpp
@@ -36,6 +36,7 @@ File Description:
 #include <cstddef>      // std::size_t
 #include <cstring>      // std::memset
 #include <array>        // std::array
+#include <new>          // std::hardware_destructive_interference_size
 
 namespace c2dmp::algorithm { // namespace start
 
