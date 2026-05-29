@@ -11,7 +11,7 @@ Edition:
 ##  @date 29/05/2026 by @author Tsukini
 
 File Name:
-##  @file optimized.cpp
+##  @file foptimized.cpp
 
 File Description:
 ##  Algorithm used to determine the distance between 2 word
@@ -21,9 +21,9 @@ File Description:
 ##  k = sizeof(UINT) → can be 1, 2, 4 or 8
 ##
 ##  Time:
-##      bast → O(m + min(n, m))
-##      moy  → O(m + min(n, m))
-##      wort → O(m + min(n, m))
+##      bast → O(m + n)
+##      moy  → O(m + n)
+##      wort → O(m + n)
 ##
 ##  Memory:
 ##      best → O(1) → const (637)
@@ -96,10 +96,10 @@ static constexpr inline float upper_limit_table[5][5] = {
 #endif /* C2DMP_HSM_UPPER_LIMIT_LOOKUP_TABLE */
 
 // case sensitive
-#ifndef C2DMP_HSM_OPTIMIZED
-    #define C2DMP_HSM_OPTIMIZED
+#ifndef C2DMP_FHSM_OPTIMIZED
+    #define C2DMP_FHSM_OPTIMIZED
 template<std::uint32_t prefixDepthSearch = 3, typename UINTN = std::uint32_t>
-float c2dmp_optimized(const std::string_view a, const std::string_view b)
+float c2dmp_foptimized(const std::string_view a, const std::string_view b)
 {
     // Check given type
     static_assert(std::unsigned_integral<UINTN>, "Must be an unsigned integral");
@@ -190,6 +190,17 @@ float c2dmp_optimized(const std::string_view a, const std::string_view b)
         }
     }
 
+    // Compute missplaced char computing (full)
+    for (std::size_t i = min; i < as; ++i) {
+        // basic call & condition
+        ca = normalize(a[i]);
+
+        // missplaced char computing
+        tmp = (cc[ca] > 0);
+        missplaced_char += tmp;
+        cc[ca] -= tmp;
+    }
+
     // Compute missplaced char weigth
     // 1.01 <= coef <= 1.25
     // 1.01 -> 0 char diff
@@ -207,6 +218,6 @@ float c2dmp_optimized(const std::string_view a, const std::string_view b)
 
     return dist;
 }
-#endif /* C2DMP_HSM_OPTIMIZED */
+#endif /* C2DMP_FHSM_OPTIMIZED */
 
 } // namespace end
