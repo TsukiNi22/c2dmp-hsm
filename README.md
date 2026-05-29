@@ -21,12 +21,14 @@ sudo cmake --build $BUILD_DIR --target install --parallel $(nproc)
 > [!WARNING]
 > Everything is defined within the namespace `c2dmp::`
 
-| Include                              | Content                                                                      |
-| ------------------------------------ | ---------------------------------------------------------------------------- |
-| -lc2dmp-hsm                          | `Nothing for now`                                                            |
-| <c2dmp-hsm/c2dmp-hsm.hpp>            | `float c2dmp(const std::string_view a, const std::string_view b)`            |
-| <c2dmp-hsm/algorithm/optimized.hpp>  | `float c2dmp_optimized(const std::string_view a, const std::string_view b)`  |
-| <c2dmp-hsm/algorithm/simplified.hpp> | `float c2dmp_simplified(const std::string_view a, const std::string_view b)` |
+| Include                               | Content                                                                              |
+| ------------------------------------- | ------------------------------------------------------------------------------------ |
+| -lc2dmp-hsm                           | `Nothing for now`                                                                    |
+| <c2dmp-hsm/c2dmp-hsm.hpp>             | `float c2dmp<bool full = false>(const std::string_view a, const std::string_view b)` |
+| <c2dmp-hsm/algorithm/optimized.hpp>   | `float c2dmp_optimized(const std::string_view a, const std::string_view b)`          |
+| <c2dmp-hsm/algorithm/simplified.hpp>  | `float c2dmp_simplified(const std::string_view a, const std::string_view b)`         |
+| <c2dmp-hsm/algorithm/foptimized.hpp>  | `float c2dmp_foptimized(const std::string_view a, const std::string_view b)`         |
+| <c2dmp-hsm/algorithm/fsimplified.hpp> | `float c2dmp_fsimplified(const std::string_view a, const std::string_view b)`        |
 
 ## Description
 
@@ -54,6 +56,7 @@ The distance is the final floating value that determines the similarity between 
 This value is computed by adding costs (which can be positive or negative). The value starts at '0'.
 (The lower the value the better. If it goes below 0 it should represent a good match.)
 ```
+
 - **Differences**
 ```
 When comparing 2 characters they are normalized (such as A → a, Â → a, é → e, ...).
@@ -62,7 +65,14 @@ Differences are evaluated at '+1' for the cost and correspond to the difference 
 During a comparison there is a possibility for the cost to be '-0.5', if two characters are equal before normalization
 and also different from their normalized version.
 ```
+
 - **Misplaced characters**
+> [!NOTE]
+> We can benefit from the `O(m + min(n, m))` due to a cut here (giving/assuming the extra characters a higer diff value)
+>
+> If `n < m` the characters that are on the part that isn't read of `m` (s1) w'ont be evaluated for the misplaced character count
+>
+> Use the `f` (full) one to compute the last part (changing the time complexity)
 ```
 During the comparison of the characters in parallel we count the number of misplaced characters.
 Misplaced characters are those that aren't equal to their corresponding character at the same position in the second array
@@ -74,6 +84,7 @@ Limits: 1.01 <= coef <= 1.25
 coef = 1.01 + (diff / 10) * 0.25;
 coef = clamp(coef, 1.01, 1.25);
 ```
+
 - **Prefix depth**
 ```
 The given prefix depth is the number of potential prefixes tested, each starting one character later than the previous in s1.
@@ -104,6 +115,14 @@ coef = (upper_limit * (prefix_size / len(s1)));
 | Best | `O(m + min(n, m))` |
 | Avg  | `O(m + min(n, m))` |
 | Worst| `O(m + min(n, m))` |
+
+### Time Complexity (full)
+
+| Case  | Complexity |
+|------|------------|
+| Best | `O(m + n)` |
+| Avg  | `O(m + n)` |
+| Worst| `O(m + n)` |
 
 ### Memory Complexity
 
