@@ -23,6 +23,11 @@ endif()
 # =========================
 # Warnings
 # =========================
+message(WARNING
+    "⚠️ This library contains no real source files.\n"
+    "This project is effectively header-only.\n"
+    "Only '--target install' is meaningful."
+)
 add_compile_options(
     -W
     -Wall
