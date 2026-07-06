@@ -1,0 +1,64 @@
+name: CD - Algorithm
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  sync-library:
+    runs-on: ${{ vars.RUNNER }}
+    defaults:
+      run:
+        shell: bash
+
+    container:
+      image: ghcr.io/tsukini22/ci:latest
+
+    steps:
+      - name: Checkout c2dmp-hsm
+        uses: actions/checkout@v5
+        with:
+          path: c2dmp-hsm
+
+      - name: Checkout my_lib_cpp
+        uses: actions/checkout@v5
+        with:
+          repository: TsukiNi22/my_lib_cpp
+          token: ${{ secrets.LIBRARY_REPO_TOKEN }}
+          path: my_lib_cpp
+
+      - name: Sync files into library
+        run: |
+          set -e
+
+          # Change namespace and macro usages
+          sed -i \
+            -e 's/namespace c2dmp/namespace utils::algorithms::c2dmp/' \
+            -e 's/c2dmp::algorithm/utils::algorithms::c2dmp/g' \
+            "c2dmp-hsm/include/c2dmp-hsm/c2dmp-hsm.hpp"
+          find c2dmp-hsm/include/c2dmp-hsm/algorithm -type f \( -name "*" \) \
+            -exec sed -i \
+            -e 's/namespace c2dmp::algorithm/namespace utils::algorithms::c2dmp/' \
+            -e '/#include <string_view>/i #include "utils/attribute/Attribute.hpp"' \
+            -e 's/\<alignas\>/set_padding/g' \
+            -e 's/\[\[maybe_unused\]\]/unused/g' \
+            -e 's/\[\[deprecated("This version isn'\''t the most optimized one, you should use c2dmp_foptimized or c2dmp")\]\]/outdated("This version isn'\''t the most optimized one, you should use c2dmp_optimized or c2dmp")/g' \
+            {} +
+
+          # Move files
+          rm -rf my_lib_cpp/include/utils/algorithms/c2dmp-hsm
+          cp -r c2dmp-hsm/include/c2dmp-hsm my_lib_cpp/include/utils/algorithms/c2dmp-hsm
+
+      - name: Commit and push
+        working-directory: my_lib_cpp
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add my_lib_cpp/include/utils/algorithms/
+          if git diff --cached --quiet; then
+            echo "No changes to sync."
+            exit 0
+          fi
+          git commit -m "chore: sync algorithm from c2dmp-hsm (${{ github.sha }})"
+          git push origin main

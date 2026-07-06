@@ -8,7 +8,7 @@
  ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝
 
 Edition:
-##  @date 29/05/2026 by @author Tsukini
+##  @date 06/07/2026 by @author Tsukini
 
 File Name:
 ##  @file fsimplified.cpp
@@ -82,7 +82,7 @@ static inline unsigned char normalize(unsigned char c) {return lookup_table[c];}
 #ifndef C2DMP_FHSM_SIMPLIFIED
     #define C2DMP_FHSM_SIMPLIFIED
 template<std::uint32_t prefixDepthSearch = 3, typename UINTN = std::uint32_t>
-[[deprecated("This version isn't the most optimized one, you should use c2dmp_foptimized or c2dmp<true>")]]
+[[deprecated("This version isn't the most optimized one, you should use c2dmp_foptimized or c2dmp")]]
 float c2dmp_fsimplified(const std::string_view a, const std::string_view b)
 {
     // Check given type
