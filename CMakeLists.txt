@@ -51,8 +51,8 @@ target_include_directories(${TARGET} PUBLIC include)
 # Modes
 # =========================
 target_compile_options(${TARGET} PRIVATE
-    $<$<CONFIG:debug>:-g -ggdb3>
-    $<$<CONFIG:optimized>:-O3 -ffast-math -flto -funroll-loops -fvectorize -fslp-vectorize -march=native -fno-plt -pipe -DNDEBUG>
+    $<$<CONFIG:Debug>:-g -ggdb3>
+    $<$<CONFIG:Optimized>:-O3 -ffast-math -flto -funroll-loops -fvectorize -fslp-vectorize -march=native -fno-plt -pipe -DNDEBUG>
 )
 
 # =========================

@@ -13,7 +13,7 @@ cd c2dmp-hsm
 #### Build & Installation
 ```bash
 export BUILD_DIR=build
-cmake -S . -B $BUILD_DIR -DCMAKE_BUILD_TYPE=optimized
+cmake -S . -B $BUILD_DIR -DCMAKE_BUILD_TYPE=Optimized
 sudo cmake --build $BUILD_DIR --target install --parallel $(nproc)
 ```
 
