@@ -12,6 +12,15 @@ set(CMAKE_CXX_COMPILER clang++)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON) # Moderne compilation -fPIE
 
 # =========================
+# Requirement
+# =========================
+find_package(PkgConfig REQUIRED)
+find_program(CCACHE_PROGRAM ccache) # Used for cache during compilation
+if (CCACHE_PROGRAM)
+    set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE_PROGRAM})
+endif()
+
+# =========================
 # Warnings
 # =========================
 add_compile_options(
