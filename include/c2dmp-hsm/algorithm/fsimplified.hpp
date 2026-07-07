@@ -8,7 +8,7 @@
  ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝
 
 Edition:
-##  @date 06/07/2026 by @author Tsukini
+##  @date 08/07/2026 by @author Tsukini
 
 File Name:
 ##  @file fsimplified.cpp
@@ -33,7 +33,7 @@ File Description:
 
 #include <string_view>  // std::string_view
 #include <algorithm>    // std::clamp, std::min, std::max
-#include <cstdint>      // std::uint8_t, std::uint16_t, std::uint32_t, std::uint64_t
+#include <cstdint>      // std::uint_fast8_t
 #include <cstddef>      // std::size_t
 #include <array>        // std::array
 #include <new>          // std::hardware_destructive_interference_size
@@ -81,7 +81,7 @@ static inline unsigned char normalize(unsigned char c) {return lookup_table[c];}
 // case sensitive
 #ifndef C2DMP_FHSM_SIMPLIFIED
     #define C2DMP_FHSM_SIMPLIFIED
-template<std::uint32_t prefixDepthSearch = 3, typename UINTN = std::uint32_t>
+template<std::uint_fast8_t prefixDepthSearch = 3, typename UINTN = std::uint_fast8_t>
 [[deprecated("This version isn't the most optimized one, you should use c2dmp_foptimized or c2dmp")]]
 float c2dmp_fsimplified(const std::string_view a, const std::string_view b)
 {
