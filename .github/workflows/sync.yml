@@ -3,6 +3,8 @@ name: CD - Algorithm
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - '.github/**'
 
 jobs:
   sync-library:
