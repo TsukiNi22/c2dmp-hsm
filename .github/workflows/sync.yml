@@ -40,9 +40,9 @@ jobs:
             -exec sed -i \
             -e 's/namespace c2dmp::algorithm/namespace utils::algorithms::c2dmp/' \
             -e '/#include <string_view>/i #include "utils/attribute/Attribute.hpp"' \
-            -e 's/\<alignas\>/set_padding/g' \
-            -e 's/\[\[maybe_unused\]\]/unused/g' \
-            -e 's/\[\[deprecated("This version isn'\''t the most optimized one, you should use c2dmp_foptimized or c2dmp")\]\]/outdated("This version isn'\''t the most optimized one, you should use c2dmp_optimized or c2dmp")/g' \
+            -e 's/\<alignas\>/_alignas/g' \
+            -e 's/\[\[maybe_unused\]\]/_unused/g' \
+            -e 's/\[\[deprecated("This version isn'\''t the most optimized one, you should use c2dmp_foptimized or c2dmp")\]\]/_deprecated("This version isn'\''t the most optimized one, you should use c2dmp_optimized or c2dmp")/g' \
             {} +
 
           # Move files
