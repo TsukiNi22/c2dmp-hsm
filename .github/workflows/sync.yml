@@ -20,12 +20,12 @@ jobs:
         with:
           path: c2dmp-hsm
 
-      - name: Checkout my_lib_cpp
+      - name: Checkout libutils
         uses: actions/checkout@v5
         with:
-          repository: TsukiNi22/my_lib_cpp
+          repository: TsukiNi22/libutils
           token: ${{ secrets.LIBRARY_REPO_TOKEN }}
-          path: my_lib_cpp
+          path: libutils
 
       - name: Sync files into library
         run: |
@@ -46,11 +46,11 @@ jobs:
             {} +
 
           # Move files
-          rm -rf my_lib_cpp/include/utils/algorithms/c2dmp-hsm
-          cp -r c2dmp-hsm/include/c2dmp-hsm my_lib_cpp/include/utils/algorithms/c2dmp-hsm
+          rm -rf libutils/include/utils/algorithms/c2dmp-hsm
+          cp -r c2dmp-hsm/include/c2dmp-hsm libutils/include/utils/algorithms/c2dmp-hsm
 
       - name: Commit and push
-        working-directory: my_lib_cpp
+        working-directory: libutils
         run: |
           set -e
           git config user.name "github-actions[bot]"
